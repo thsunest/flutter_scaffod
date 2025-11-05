@@ -1,0 +1,1 @@
+ F:\\shared_travel\\.dart_tool\\flutter_build\\40d36c7f9d97d94103ce2452d831e56c\\native_assets.json: 

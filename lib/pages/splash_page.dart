@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_scaffod/pages/home_page.dart';
+import 'package:flutter_scaffod/utils/nav_manager.dart';
 
 import '../utils/local_storage.dart';
 
@@ -13,11 +15,20 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    _initLocalStorage();
+    _bootstrap();
   }
 
   Future<void> _initLocalStorage() async {
     await LocalStorage.init();
+  }
+
+  Future<void> _bootstrap() async {
+    await _initLocalStorage();
+    if (!mounted) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      NavManager.pushReplacement(const HomePage());
+    });
   }
 
   @override
