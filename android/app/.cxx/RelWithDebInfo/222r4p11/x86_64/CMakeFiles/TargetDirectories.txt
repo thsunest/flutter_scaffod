@@ -1,0 +1,2 @@
+F:/shared_travel/android/app/.cxx/RelWithDebInfo/222r4p11/x86_64/CMakeFiles/edit_cache.dir
+F:/shared_travel/android/app/.cxx/RelWithDebInfo/222r4p11/x86_64/CMakeFiles/rebuild_cache.dir

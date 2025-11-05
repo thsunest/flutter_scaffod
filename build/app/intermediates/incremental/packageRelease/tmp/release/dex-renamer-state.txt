@@ -1,0 +1,4 @@
+#Wed Nov 05 09:39:14 CST 2025
+base.0=F\:\\shared_travel\\build\\app\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
