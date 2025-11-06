@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import '../../widgets/error_page.dart';
 
 class NavManager {
@@ -55,16 +58,29 @@ class NavManager {
     ShapeBorder? shape,
     Clip? clipBehavior,
   }) {
-    return showModalBottomSheet<T>(
-      context: navigatorKey.currentContext!,
-      isScrollControlled: isScrollControlled,
-      useRootNavigator: useRootNavigator,
-      backgroundColor: backgroundColor,
-      elevation: elevation,
-      shape: shape,
-      barrierColor: barrierColor,
-      clipBehavior: clipBehavior,
-      builder: builder,
-    );
+    final completer = Completer<T?>();
+
+    void presentSheet() {
+      showModalBottomSheet<T>(
+        context: navigatorKey.currentContext!,
+        isScrollControlled: isScrollControlled,
+        useRootNavigator: useRootNavigator,
+        backgroundColor: backgroundColor,
+        elevation: elevation,
+        shape: shape,
+        barrierColor: barrierColor,
+        clipBehavior: clipBehavior,
+        builder: builder,
+      ).then(completer.complete).catchError(completer.completeError);
+    }
+
+    // Defer the presentation if we're still in the middle of a build frame.
+    if (SchedulerBinding.instance.schedulerPhase == SchedulerPhase.idle) {
+      presentSheet();
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) => presentSheet());
+    }
+
+    return completer.future;
   }
 }

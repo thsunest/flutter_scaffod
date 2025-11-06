@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_scaffod/data/providers/bottom_nav_provider.dart';
 import 'package:flutter_scaffod/injections/injection.dart';
 import 'package:flutter_scaffod/pages/splash_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         // 全局Provider列表
+        ChangeNotifierProvider(create: (_) => BottomNavbarProvider()),
       ],
       child: ScreenUtilInit(
         //TODO 根据设计稿尺寸修改
