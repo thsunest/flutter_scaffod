@@ -17,58 +17,72 @@ class MinePage extends StatelessWidget {
           return _buildContent(context);
         }));
   }
-
+  //MARK content
   _buildContent(BuildContext context) {
     final ref = Provider.of<MineController>(context);
     return Scaffold(
         body: Stack(
       children: [
         Container(
+            height: 198.h,
             decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/mine_bg.png'),
-            fit: BoxFit.cover,
-          ),
-        )),
-        Column(
-          children: [
-            SizedBox(height: 72.h),
-            Image.asset(
-              'assets/images/avatar.png',
-              width: 68.w,
-              height: 68.h,
-            ),
-            SizedBox(height: 12.h),
-            Text(
-              '用户名',
-            ),
-            SizedBox(
-              height: 55.h,
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(27.r),
-                    topRight: Radius.circular(27.r),
-                  ),
+              image: DecorationImage(
+                image: AssetImage(
+                  'assets/images/mine_bg.png',
                 ),
-                child: Column(children: [
-                  SizedBox(height: 24.h),
-                  ...List.generate(ref.options.length, (index) {
-                    final title = ref.options[index];
-                    final onTap = ref.actions[index];
-                    return _buildOptionItem(title, onTap, index, context);
-                  }),
-                  SizedBox(
-                    height: 129.h,
-                  ),
-                  _buildLogoutButton(context)
-                ]),
+                fit: BoxFit.fill,
               ),
-            )
-          ],
+            )),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
+          child: Column(
+            children: [
+              SizedBox(height: 72.h),
+              Row(
+                children: [
+                  Image.asset(
+                    'assets/images/avatar.png',
+                    width: 46.w,
+                    height: 46.h,
+                  ),
+                  SizedBox(width: 7.w),
+                  Text(
+                    '用户名',
+                    style: TextStyle(
+                      color: Color(0xFF1B760F),
+                      fontSize: 17.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 25.h,
+              ),
+              MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      16.r,
+                    ),
+                  ),
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                    return _buildOptionItem(
+                        ref.options[index], ref.actions[index], index, context);
+                  }, separatorBuilder: (context,index) {
+                    return Divider(height: 1, color: Color(0x00000014).withOpacity(0.08));
+                  }, itemCount: ref.options.length )
+                ),
+              ),
+              SizedBox(height: 45.h),
+              _buildLogoutButton(context)
+            ],
+          ),
         ),
       ],
     ));
@@ -81,11 +95,6 @@ class MinePage extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: Colors.grey.shade300, width: 1.h),
-          ),
-        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              scaffoldBackgroundColor: Color(0xFFF5F5F5),
               appBarTheme: AppBarTheme(backgroundColor: Colors.white),
             ),
             localizationsDelegates: [
